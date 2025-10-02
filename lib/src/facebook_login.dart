@@ -33,8 +33,9 @@ class FacebookLogin {
 
   /// Returns currently used Facebook SDK.
   Future<String> get sdkVersion async {
-    final res =
-        await _channel.invokeMethodNow<String>(PluginMethod.getSdkVersion);
+    final res = await _channel.invokeMethodNow<String>(
+      PluginMethod.getSdkVersion,
+    );
     return res ?? 'n/a';
   }
 
@@ -88,10 +89,7 @@ class FacebookLogin {
     try {
       final url = await _channel.invokeMethod<String>(
         PluginMethod.getProfileImageUrl,
-        {
-          _widthArg: width,
-          _heightArg: height ?? width,
-        },
+        {_widthArg: width, _heightArg: height ?? width},
       );
 
       if (debug) _log('Profile image url: $url');
@@ -124,8 +122,9 @@ class FacebookLogin {
     }
 
     try {
-      final email =
-          await _channel.invokeMethod<String>(PluginMethod.getUserEmail);
+      final email = await _channel.invokeMethod<String>(
+        PluginMethod.getUserEmail,
+      );
 
       if (debug) _log('User email: $email');
       return email;
@@ -139,17 +138,19 @@ class FacebookLogin {
   ///
   /// [permissions] Array of read permissions. Default: `[FacebookPermission.publicProfile]`
   /// If required permission is not in enum [FacebookPermission], than use [customPermissions].
-  Future<FacebookLoginResult> logIn(
-      {List<FacebookPermission> permissions = const [
-        FacebookPermission.publicProfile
-      ],
-      List<String> customPermissions = const []}) async {
+  Future<FacebookLoginResult> logIn({
+    List<FacebookPermission> permissions = const [
+      FacebookPermission.publicProfile,
+    ],
+    List<String> customPermissions = const [],
+  }) async {
     final permissionsArg = permissions.map((e) => e.name).toList();
     if (customPermissions.isNotEmpty) permissionsArg.addAll(customPermissions);
 
     if (debug) _log('Log In with permissions $permissionsArg');
-    return _invokeLoginMethod(
-        PluginMethod.logIn, {_permissionsArg: permissionsArg});
+    return _invokeLoginMethod(PluginMethod.logIn, {
+      _permissionsArg: permissionsArg,
+    });
   }
 
   /// Start Express log in Facebook process
@@ -174,8 +175,10 @@ class FacebookLogin {
   bool _isLoggedIn(FacebookAccessToken? token) =>
       token != null && DateTime.now().isBefore(token.expires);
 
-  Future<FacebookLoginResult> _invokeLoginMethod(PluginMethod method,
-      [Map<String, Object>? arguments]) async {
+  Future<FacebookLoginResult> _invokeLoginMethod(
+    PluginMethod method, [
+    Map<String, Object>? arguments,
+  ]) async {
     final loginResultData = await _invoke(method, arguments);
 
     if (debug) _log('Result: $loginResultData');
@@ -185,8 +188,10 @@ class FacebookLogin {
   }
 
   Future<JsonData?> _invoke(PluginMethod method, [Object? arguments]) async =>
-      (await _channel.invokeMethod<JsonRawData>(method, arguments))
-          ?.cast<String, Object?>();
+      (await _channel.invokeMethod<JsonRawData>(
+        method,
+        arguments,
+      ))?.cast<String, Object?>();
 
   void _log(String message) {
     if (debug) debugPrint('[FB] $message');

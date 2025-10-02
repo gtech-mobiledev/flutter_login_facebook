@@ -131,7 +131,7 @@ enum FacebookPermission {
   instagramBasic,
 
   /// Allows you to publish content to a person's Instagram feed as the person.
-  instagramContentPublish
+  instagramContentPublish,
 }
 
 extension FacebookPermissionExtension on FacebookPermission {

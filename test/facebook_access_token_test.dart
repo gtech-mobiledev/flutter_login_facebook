@@ -16,9 +16,7 @@ void main() {
     });
 
     test('should handle too long expires', () {
-      final map = _map(
-        expires: 9223372036854775807,
-      );
+      final map = _map(expires: 9223372036854775807);
 
       final res = FacebookAccessToken.fromMap(map);
 
@@ -38,11 +36,10 @@ Map<String, Object?> _map({
   int expires = 1646057049123,
   List<String> permissions = const ['email'],
   List<String> declinedPermissions = const <String>[],
-}) =>
-    {
-      'token': token,
-      'userId': userId,
-      'expires': expires,
-      'permissions': permissions,
-      'declinedPermissions': declinedPermissions,
-    };
+}) => {
+  'token': token,
+  'userId': userId,
+  'expires': expires,
+  'permissions': permissions,
+  'declinedPermissions': declinedPermissions,
+};

@@ -13,14 +13,17 @@ class FacebookError {
   /// A localized user facing title, if available
   final String? localizedTitle;
 
-  FacebookError(
-      {this.developerMessage, this.localizedDescription, this.localizedTitle});
+  FacebookError({
+    this.developerMessage,
+    this.localizedDescription,
+    this.localizedTitle,
+  });
 
   factory FacebookError.fromMap(JsonData map) => FacebookError(
-        developerMessage: map['developerMessage'] as String?,
-        localizedDescription: map['localizedDescription'] as String?,
-        localizedTitle: map['localizedTitle'] as String?,
-      );
+    developerMessage: map['developerMessage'] as String?,
+    localizedDescription: map['localizedDescription'] as String?,
+    localizedTitle: map['localizedTitle'] as String?,
+  );
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -47,7 +50,8 @@ class FacebookError {
       localizedTitle.hashCode;
 
   @override
-  String toString() => 'FacebookError(developerMessage: $developerMessage, '
+  String toString() =>
+      'FacebookError(developerMessage: $developerMessage, '
       'localizedDescription: $localizedDescription, '
       'localizedTitle: $localizedTitle)';
 }
