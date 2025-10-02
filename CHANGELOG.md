@@ -1,3 +1,8 @@
+## 3.0.0
+* Upgrade Facebook SDK to 18.0
+* Update Android Gradle
+* Update example project
+
 ## 2.0.1
 
 * Upgrade Facebook iOS SDK to 17.0.2. 
